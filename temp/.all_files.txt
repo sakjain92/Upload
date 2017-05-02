@@ -1,0 +1,30 @@
+Placeholder for some text
+Another file
+check_updates:
+	./check_updates.sh
+
+all: check_updates
+# Replace with course website
+WEB_ADDR='https://github.com/sakjain92/Upload'
+TEMP_DIR='temp'
+ALLFILE=`printf "%s/.all_files.txt" "$TEMP_DIR"`
+
+# List of files which are being tracked
+declare -a files=(
+		"file1.txt"
+		"dir/file2.txt"
+		"Makefile"
+		"check_updates.sh"
+		)
+
+mkdir -p $TEMP_DIR
+rm -rf $ALLFILE
+
+for file in "${files[@]}"
+do
+	cat "$file" >> $ALLFILE
+done
+
+all_md5sum=`md5sum $ALLFILE | awk '{print $1;}'`
+echo "$all_md5sum"
+
